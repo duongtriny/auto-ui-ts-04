@@ -1,10 +1,9 @@
 import { Page } from "@playwright/test";
+import { CommonPage } from "./CommonPage";
 
-export class LoginPage {
-    page: Page
-
+export class LoginPage extends CommonPage {
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async loginWithAdmin() {
@@ -15,17 +14,6 @@ export class LoginPage {
         await this.inputTextboxByLabel('Email', email);
         await this.inputTextboxByLabel('Password', password);
         await this.clickButtonByLabel('SIGN IN');
-    }
-
-    async inputTextboxByLabel(label: string, value: string) {
-        let xpath = `(//label[.//text()[normalize-space()='${label}']]/following::input)[1]`;
-        await this.page.locator(xpath).clear();
-        await this.page.locator(xpath).fill(value);
-    }
-
-    async clickButtonByLabel(label: string) {
-        let xpath = `//button[.//text()[normalize-space()='${label}']]`;
-        await this.page.locator(xpath).click();
     }
 
     async getErrorMessageByLabel(label: string) {
