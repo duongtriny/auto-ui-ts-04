@@ -37,4 +37,15 @@ export class CommonPage {
         let xpath = `//button[.//text()[normalize-space()='${label}']]`;
         await this.page.locator(xpath).click();
     }
+
+    async clickOnLinkByText(text: string) {
+        let xpath = `//a[.//text()[normalize-space()="${text}"]]`;
+        await this.page.locator(xpath).click();
+    }
+
+    async getTextBoxValueByLabel(label: string) {
+        let xpath = `(//label[.//text()[normalize-space()='${label}']]/following::input)[1]`;
+        let value = await this.page.locator(xpath).getAttribute("value");
+        return value?.trim();
+    }
 }
