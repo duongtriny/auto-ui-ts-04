@@ -3,21 +3,44 @@ import { LoginPage } from "../../../pages/LoginPage";
 import { NewProductPage } from "../../../pages/NewProductPage";
 import { ProductsPage } from "../../../pages/ProductsPage";
 import { EditProductPage } from "../../../pages/EditProductPage";
+import { DELETE_PRODUCT_API, LOGIN_URL, URL } from "../../../utils/constants";
 
 let loginPage: LoginPage;
 let newProductPage: NewProductPage;
 let productsPage: ProductsPage;
 let editProductPage: EditProductPage;
+let listProductIds: string[] = [];
+let cookie: string;
 
 test.beforeEach('Before each', async ({ page }) => {
     loginPage = new LoginPage(page);
     newProductPage = new NewProductPage(page);
     productsPage = new ProductsPage(page);
     editProductPage = new EditProductPage(page);
-    await page.goto('http://localhost:3000/admin/login');
+    await page.goto(LOGIN_URL);
     await loginPage.loginWithAdmin();
     await expect(page.getByText('Dashboard').first()).toBeVisible();
+
+    page.route('*/**/api/products', async (route, request) => {
+        let allHeaders = await request.allHeaders();
+        cookie = allHeaders.cookie;
+        const response = await route.fetch();
+        const json = await response.json();
+        listProductIds.push(json.data.uuid);
+        await route.fulfill({ response, json });
+    });
 });
+
+test.afterAll('Clean up data', async ({ request }) => {
+    for (let id of listProductIds) {
+        await request.delete(`${URL}${DELETE_PRODUCT_API}${id}`, {
+            headers: {
+                'cookie': cookie
+            }
+        });
+    }
+
+})
 
 test(`Verify create product`, async ({ page }) => {
     await loginPage.selectMenuByLabel('New Product');

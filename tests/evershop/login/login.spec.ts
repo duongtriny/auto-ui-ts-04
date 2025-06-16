@@ -1,12 +1,13 @@
 import test, { expect, Page } from "@playwright/test";
 import { invalidLoginData } from "./login-data";
 import { LoginPage } from "../../../pages/LoginPage";
+import { LOGIN_URL } from "../../../utils/constants";
 
 let loginPage: LoginPage;
 
 test.beforeEach('Before each', async ({ page }) => {
     loginPage = new LoginPage(page);
-    await page.goto('http://localhost:3000/admin/login');
+    await page.goto(LOGIN_URL);
 });
 
 for (let data of invalidLoginData) {
