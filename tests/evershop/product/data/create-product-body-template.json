@@ -1,0 +1,33 @@
+{
+    "name": "Giày Thể Thao Biti's Hunter X - 1750080033172",
+    "product_id": "",
+    "sku": "SKU-1750080033172",
+    "price": "100",
+    "weight": "200",
+    "category_id": "3",
+    "tax_class": "1",
+    "description": "[]",
+    "images": [
+        "/assets/catalog/5791/7410/bitis.webp"
+    ],
+    "url_key": "url-key-1750080033172",
+    "meta_title": "bitis",
+    "meta_keywords": "bitis",
+    "meta_description": "Giày Thể Thao Biti's Hunter X LiteDash Go For Love 2k25 Edition Nam Màu Trắng HSM007505TRG",
+    "status": "0",
+    "visibility": "0",
+    "manage_stock": "0",
+    "stock_availability": "0",
+    "qty": "10",
+    "group_id": "1",
+    "attributes": [
+        {
+            "attribute_code": "color",
+            "value": "1"
+        },
+        {
+            "attribute_code": "size",
+            "value": "5"
+        }
+    ]
+}
