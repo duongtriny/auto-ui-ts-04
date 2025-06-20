@@ -8,8 +8,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.2"
+    "@playwright/test": "^1.53.0",
+    "@types/node": "^22.15.2",
+    "allure-playwright": "^3.2.2"
   },
   "dependencies": {
     "dayjs": "^1.11.13"

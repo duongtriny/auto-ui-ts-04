@@ -404,3 +404,6 @@ FodyWeavers.xsd
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+allure-results
+allure-report
+.DS_Store

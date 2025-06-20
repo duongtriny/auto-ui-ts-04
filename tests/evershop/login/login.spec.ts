@@ -2,6 +2,7 @@ import test, { expect, Page } from "@playwright/test";
 import { invalidLoginData } from "./login-data";
 import { LoginPage } from "../../../pages/LoginPage";
 import { LOGIN_URL } from "../../../utils/constants";
+import { iStep } from "../../../utils/step-utils";
 
 let loginPage: LoginPage;
 
@@ -12,9 +13,9 @@ test.beforeEach('Before each', async ({ page }) => {
 
 for (let data of invalidLoginData) {
     test(`Verify login with invalid data - email: ${data.email} - password: ${data.passwords}`, async ({ page }) => {
-        await loginPage.login(data.email, data.passwords);
-        expect(await loginPage.getErrorMessageByLabel('Email')).toEqual(data.expectedEmailErrorMessage);
-        expect(await loginPage.getErrorMessageByLabel('Password')).toEqual(data.expectedPasswordErrorMessage);
+        await iStep("Open login page", () => loginPage.login(data.email, data.passwords));
+        await iStep("Verify email error message", async () => expect(await loginPage.getErrorMessageByLabel('Email')).toEqual(data.expectedEmailErrorMessage));
+        await iStep("Verify password error message", async () => expect(await loginPage.getErrorMessageByLabel('Email')).toEqual(data.expectedEmailErrorMessage));
     });
 }
 
