@@ -1,8 +1,9 @@
 import test, { expect, Page } from "@playwright/test";
 import { invalidLoginData } from "./login-data";
 import { LoginPage } from "../../../pages/LoginPage";
-import { LOGIN_URL } from "../../../utils/constants";
+import { ADMIN_PASSWORD, ADMIN_USER_NAME, LOGIN_URL } from "../../../utils/constants";
 import { iStep } from "../../../utils/step-utils";
+import { getEnv } from "../../../utils/config-utils";
 
 let loginPage: LoginPage;
 
@@ -25,6 +26,6 @@ test(`Verify login with wrong username and password`, async ({ page }) => {
 });
 
 test(`Verify login successful`, async ({ page }) => {
-    await loginPage.login('test@with.me', '12345678');
+    await loginPage.login(getEnv(ADMIN_USER_NAME), getEnv(ADMIN_PASSWORD));
     await expect(page.getByText('Dashboard').first()).toBeVisible();
 });
